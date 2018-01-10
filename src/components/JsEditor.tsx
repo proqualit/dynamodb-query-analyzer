@@ -4,16 +4,25 @@ import 'codemirror/mode/javascript/javascript'
 import * as CodeMirror from 'react-codemirror'
 import './JsEditor.css'
 
-console.log('codemirror', CodeMirror)
+interface JsEditorProps {
+  value: string,
+  onChange: (newValue: string) => string
+}
 
-export default function () {
+const JsEditor: React.SFC<JsEditorProps> = ({ value, onChange }) => {
+  // CodeMirror does not like it when you pass a function with an optional callback
+  // as the second parameter.
+  const onChange$ = (code: string) => onChange(code)
+
   const options = {
     lineNumbers: true,
     mode: 'javascript'
   }
   return (
     <div className='JsEditor'>
-      <CodeMirror options={options} />
+      <CodeMirror options={options} value={value} onChange={onChange$} />
     </div>
   )
 }
+
+export default JsEditor

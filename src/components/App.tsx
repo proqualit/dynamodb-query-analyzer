@@ -2,10 +2,16 @@ import * as React from 'react'
 import './App.css'
 import JsEditor from './JsEditor'
 import { Button } from 'material-ui'
+import { withState } from 'recompose'
 
-const App = () => {
+interface AppProps {
+  code: string,
+  setCode: (code: string) => string
+}
+
+const App: React.SFC<AppProps> = ({ code, setCode }) => {
   const runClicked = () => {
-    console.log('run clicked!')
+    console.log('run clicked!', code)
   }
 
   return (
@@ -14,7 +20,7 @@ const App = () => {
         <h2>DynamoDB Query Analyzer</h2>
       </div>
       <div className='Editor'>
-        <JsEditor />
+        <JsEditor value='// code' onChange={setCode} />
       </div>
       <Button raised={true} color='primary' onClick={runClicked}>
         Run
@@ -23,4 +29,4 @@ const App = () => {
   )
 }
 
-export default App
+export default withState('code', 'setCode', '')(App)
