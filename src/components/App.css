@@ -1,4 +1,5 @@
 .App {
+  margin: 40px;
 }
 
 .App-logo {
@@ -18,7 +19,7 @@
 }
 
 .Editor {
-  margin: 40px;
+  margin-bottom: 10px;
 }
 
 @keyframes App-logo-spin {
