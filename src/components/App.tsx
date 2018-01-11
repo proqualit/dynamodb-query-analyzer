@@ -2,19 +2,30 @@ import * as React from 'react'
 import './App.css'
 import JsEditor from './JsEditor'
 import { Button } from 'material-ui'
-import { withState } from 'recompose'
+import { withState, compose } from 'recompose'
 import { executeScript } from '../lib/execute-script'
 import Header from './Header'
+import LogOutput from './LogOutput'
 
 interface AppProps {
   code: string,
-  setCode: (code: string) => string
+  setCode: (code: string) => string,
+  logs: string[],
+  setLogs: (fn: (logEntrys: string[]) => string[]) => string[]
 }
 
-const App: React.SFC<AppProps> = ({ code, setCode }) => {
+const App: React.SFC<AppProps> = ({ code, setCode, logs, setLogs }) => {
+  const log = (logEntry: string) => {
+    setLogs((existingEntries: string[]) => {
+      return [...existingEntries, logEntry]
+    })
+  }
   const runClicked = () => {
     console.log('run clicked!', code)
-    const result = executeScript(code)
+    const context = {
+      log
+    }
+    const result = executeScript(code, context)
     console.log('result', result)
   }
 
@@ -27,8 +38,12 @@ const App: React.SFC<AppProps> = ({ code, setCode }) => {
       <Button raised={true} color='primary' onClick={runClicked}>
         Run
       </Button>
+      <LogOutput logEntries={logs} />
     </div>
   )
 }
 
-export default withState('code', 'setCode', '')(App)
+export default compose(
+  withState('code', 'setCode', ''),
+  withState('logs', 'setLogs', [])
+)(App)
