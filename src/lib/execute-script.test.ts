@@ -1,21 +1,17 @@
-import { Observable } from 'rxjs/Observable'
-import { getObservableFromCode } from './observable-from-code'
+import { executeScript } from './execute-script'
 
 const expectError = (code: string) => {
-  const result = getObservableFromCode(code)
+  const result = executeScript(code)
   expect(result.errored).toBe(true)
   if (result.errored === true) {
     expect(typeof result.error).toBe('string')
   }
 }
 
-const expectObservable = (code: string) => {
-  const result = getObservableFromCode(code)
+const expectSuccess = (code: string) => {
+  const result = executeScript(code)
 
   expect(result.errored).toBe(false)
-  if (result.errored === false) {
-    expect(result.observable$).toBeInstanceOf(Observable)
-  }
 }
 
 it('returns an error when there is a syntax error', () => {
@@ -31,15 +27,15 @@ it('returns an error when the last expression is not an Observable', () => {
 })
 
 it('handles a simple Observable', () => {
-  expectObservable('Rx.Observable.interval(1000)')
+  expectSuccess('Rx.Observable.interval(1000)')
 })
 
 it('handles a higher order Observable', () => {
-  expectObservable('Rx.Observable.interval(1000).groupBy(x => x % 2)')
+  expectSuccess('Rx.Observable.interval(1000).groupBy(x => x % 2)')
 })
 
 it('handles multiple statements', () => {
-  expectObservable(
+  expectSuccess(
     `
     const first$ = Rx.Observable.create(observer => {
       setTimeout(() => observer.next('1'), 1000);
