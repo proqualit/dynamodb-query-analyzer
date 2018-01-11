@@ -4,6 +4,7 @@ import JsEditor from './JsEditor'
 import { Button } from 'material-ui'
 import { withState } from 'recompose'
 import { executeScript } from '../lib/execute-script'
+import Header from './Header'
 
 interface AppProps {
   code: string,
@@ -19,9 +20,7 @@ const App: React.SFC<AppProps> = ({ code, setCode }) => {
 
   return (
     <div className='App'>
-      <div className='App-header'>
-        <h2>DynamoDB Query Analyzer</h2>
-      </div>
+      <Header />
       <div className='Editor'>
         <JsEditor value='// code' onChange={setCode} />
       </div>
