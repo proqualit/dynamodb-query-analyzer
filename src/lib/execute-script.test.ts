@@ -18,14 +18,6 @@ it('returns an error when there is a syntax error', () => {
   expectError('syntax error here')
 })
 
-it('returns an error when there is no code', () => {
-  expectError(' ')
-})
-
-it('returns an error when the last expression is not an Observable', () => {
-  expectError('5')
-})
-
 it('handles a simple Observable', () => {
   expectSuccess('Rx.Observable.interval(1000)')
 })

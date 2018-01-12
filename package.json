@@ -96,7 +96,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "/home/dan/Dev/dynamo-query-analyzer/tsconfig.test.json"
+        "tsConfigFile": "./tsconfig.test.json"
       }
     }
   },
