@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "client": "cd client && yarn start",
-    "test-client": "cd client && yarn test",
     "server": "cd server && yarn start",
+    "test-client": "cd client && yarn test",
+    "lint-client": "cd client && yarn lint",
+    "lint-server": "cd server && yarn lint",
+    "lint": "yarn lint-client && yarn lint-server",
     "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {

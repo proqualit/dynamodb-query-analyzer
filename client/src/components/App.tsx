@@ -21,9 +21,9 @@ const App: React.SFC<AppProps> = ({ code, setCode, logs, setLogs }) => {
   //   })
   // }
   const runClicked = () => {
-    fetch('/api/hello')
-      .then(res => res.json())
-      .then(json => console.log('response', json))
+    // fetch('/api/hello')
+    //   .then(res => res.json())
+    //   .then(json => console.log('response', json))
     // console.log('run clicked!', code)
     // const context = {
     //   log
